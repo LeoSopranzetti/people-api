@@ -1,53 +1,36 @@
-package com.leo.peoplesapi.entity;
+package com.leo.peoplesapi.dto;
 
 import java.time.LocalDate;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import com.leo.peoplesapi.entity.Person;
+import com.leo.peoplesapi.entity.Phone;
 
-import lombok.Builder;
+public class PersonDTO {
 
-
-@Entity
-@Builder
-public class Person {
-	
-	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
 	private String firstName;
 	
-	@Column(nullable = false)
 	private String lastName;
 	
-	@Column(nullable = false, unique = true)
 	private String cpf;
 	
 	private LocalDate birthDate;
 	
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "person")
 	private List<Phone> phones;
+
 	
-	
-	public Person(Long id, String firstName, String lastName, String cpf, LocalDate birthDate, List<Phone> phones) {
-		this.id = id;
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.cpf = cpf;
-		this.birthDate = birthDate;
-		this.phones = phones;
+	public PersonDTO(Person person) {
+		this.id = person.getId();
+		this.firstName = person.getFirstName();
+		this.lastName = person.getLastName();
+		this.cpf = person.getCpf();
+		this.birthDate = person.getBirthDate();
+		this.phones = person.getPhones();
 	}
 	
-	public Person() {
+	public PersonDTO(){	
 	}
 
 	public Long getId() {
@@ -98,5 +81,9 @@ public class Person {
 		this.phones = phones;
 	}
 
+	public Person converter(PersonDTO personDTO) {
+		return new Person(id, firstName, lastName, cpf, birthDate, phones);
+	}
+	
 	
 }
