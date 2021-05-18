@@ -1,6 +1,7 @@
 package com.leo.peoplesapi.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,5 +46,10 @@ public class PersonService {
 	public List<Person> getAll() {
 		List<Person> list = personRepository.findAll();
 		return list;
+	}
+
+	public Optional<Person> findById(Long id) {
+		Optional<Person> person = personRepository.findById(id);
+		return person;
 	}
 }
