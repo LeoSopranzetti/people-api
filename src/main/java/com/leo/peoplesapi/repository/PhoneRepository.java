@@ -16,6 +16,4 @@ public interface PhoneRepository extends JpaRepository<Phone, Long> {
 	List<Phone> FindByPersonId(@Param("id")Long person_id);
 
 
-
-
 }

@@ -3,12 +3,15 @@ package com.leo.peoplesapi.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,5 +50,11 @@ public class PersonController {
 	@DeleteMapping("delete/{id}")
 	public ResponseEntity<?> deletar(@PathVariable Long id){
 		return personService.delete(id);
+	}
+	
+	@PutMapping("update/{id}")
+	@Transactional
+	public ResponseEntity<Person> update(@PathVariable Long id, @RequestBody PersonDTO personDTO){
+		return personService.update(id, personDTO);
 	}
 }

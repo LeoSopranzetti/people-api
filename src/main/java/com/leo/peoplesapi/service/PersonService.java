@@ -65,4 +65,13 @@ public class PersonService {
 		return ResponseEntity.ok().build();
 		
 	}
+
+	public ResponseEntity<Person> update(Long id, PersonDTO personDTO) {
+			Optional<Person> personOpt = personRepository.findById(id);
+			if(personOpt.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+			Person person = personDTO.update(id, personRepository);
+			return ResponseEntity.ok().body(person);
+	}
 }

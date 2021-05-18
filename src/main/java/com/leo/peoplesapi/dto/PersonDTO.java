@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.leo.peoplesapi.entity.Person;
 import com.leo.peoplesapi.entity.Phone;
+import com.leo.peoplesapi.repository.PersonRepository;
 
 public class PersonDTO {
 
@@ -83,6 +84,18 @@ public class PersonDTO {
 
 	public Person converter(PersonDTO personDTO) {
 		return new Person(id, firstName, lastName, cpf, birthDate, phones);
+	}
+
+	public Person update(Long id, PersonRepository personRepository) {
+			Person person = personRepository.getOne(id);
+			
+			person.setFirstName(this.firstName);
+			person.setLastName(this.lastName);
+			person.setCpf(this.cpf);
+			person.setBirthDate(this.birthDate);
+			person.setPhones(this.phones);
+			
+		return person;
 	}
 	
 	
