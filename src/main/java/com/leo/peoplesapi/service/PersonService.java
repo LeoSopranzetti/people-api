@@ -41,4 +41,9 @@ public class PersonService {
 		return person;
 		
 	}
+
+	public List<Person> getAll() {
+		List<Person> list = personRepository.findAll();
+		return list;
+	}
 }
