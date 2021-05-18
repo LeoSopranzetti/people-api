@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.leo.peoplesapi.dto.PersonDTO;
@@ -51,5 +52,17 @@ public class PersonService {
 	public Optional<Person> findById(Long id) {
 		Optional<Person> person = personRepository.findById(id);
 		return person;
+	}
+
+	public ResponseEntity<?> delete(Long person_id) {
+			Optional<Person>person = personRepository.findById(person_id);
+			if(person.isEmpty()) {
+				return ResponseEntity.notFound().build();
+			}
+			List<Phone> phones = phoneRepository.FindByPersonId(person_id);
+			phoneRepository.deleteAll(phones);
+			personRepository.deleteById(person_id);
+		return ResponseEntity.ok().build();
+		
 	}
 }
